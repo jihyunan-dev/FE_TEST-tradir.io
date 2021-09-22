@@ -35,9 +35,32 @@ const Routes = () => {
       : header에서 `/home`과 `/beerlist`를 이동할 수 있도록 구현
 
 - [x] material table library 사용하여 맥주 리스트 페이지 만들기
+
   - [x] 테이블의 column Header는 드래그로 순서 변경
         => material-table 기본 기능
-  - [ ] 바뀐 순서는 redux에 저장되어 `/home`와 `/bearlist`에서 모두 유지 되어야 함
+  - [x] 바뀐 순서는 redux에 저장되어 `/home`와 `/bearlist`에서 모두 유지 되어야 함
+        => `UPDATE_COLUMNS` 액션을 생성하여 redux에서 columns를 관리하도록 함
+
+    ```js
+    // BeearTable/index.js
+    ......
+    const handleOrderChange = (srcIdx, destIdx) => {
+      const newColumns = columns.slice();
+      const targetColumn = newColumns.splice(srcIdx, 1)[0];
+      newColumns.splice(destIdx, 0, targetColumn);
+      dispatch(updateColumns(newColumns));
+    };
+
+    const option = {
+      icons: tableIcons,
+      title: "맥주 리스트",
+      columns,
+      onColumnDragged: handleOrderChange,
+      data: beerlist,
+    };
+
+    ```
+
 - [ ] 맥주 알콜 도수(abv) 필터 기능 만들기
   - [ ] 다중 선택 가능
   - [ ] 필터 기능은 라이브러리가 아닌 개인이 구현
