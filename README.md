@@ -16,7 +16,21 @@ Tradir.io - 안지현
 
 ### 필수기능
 
-- [ ] 유저가 처음 페이지를 열었을 때 `/home`으로 도착
+- [x] 유저가 처음 페이지를 열었을 때 `/home`으로 도착
+
+```jsx
+const Routes = () => {
+  return (
+    <Router>
+      <Switch>
+        <Redirect exact from="/" to="/home" />
+        <Route path="/home" component={Home} />
+      </Switch>
+    </Router>
+  );
+};
+```
+
 - [ ] 홈페이지에서 `/bearlist`로 이동
 - [ ] material table library 사용하여 맥주 리스트 페이지 만들기
   - [ ] 테이블의 column Header는 드래그로 순서 변경
