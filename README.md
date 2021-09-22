@@ -18,7 +18,7 @@ Tradir.io - 안지현
 
 - [x] 유저가 처음 페이지를 열었을 때 `/home`으로 도착
 
-```jsx
+```js
 const Routes = () => {
   return (
     <Router>
@@ -31,7 +31,9 @@ const Routes = () => {
 };
 ```
 
-- [ ] 홈페이지에서 `/bearlist`로 이동
+- [x] 홈페이지에서 `/bearlist`로 이동
+      : header에서 `/home`과 `/beerlist`를 이동할 수 있도록 구현
+
 - [ ] material table library 사용하여 맥주 리스트 페이지 만들기
   - [ ] 테이블의 column Header는 드래그로 순서 변경
   - [ ] 바뀐 순서는 redux에 저장되어 `/home`와 `/bearlist`에서 모두 유지 되어야 함

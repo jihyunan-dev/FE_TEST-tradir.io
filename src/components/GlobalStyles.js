@@ -6,12 +6,14 @@ const GlobalStyles = createGlobalStyle`
 
   /* colors */
   :root {
+    --dark: #262223;
     --red: #D2302C;
     --white: #F7F7F9;
   }
 
   * {
     box-sizing : border-box;
+    color: var(--dark);
     font-family: 'Noto Serif KR', serif;
   }
   
@@ -29,12 +31,14 @@ const GlobalStyles = createGlobalStyle`
   }
   
   a {
+    color: var(--dark);
     text-decoration:none;
   }
   
   input,
   textarea,
   button {
+    color: var(--dark);
     border: none;
     outline: none;
     font-family: 'Noto Serif KR', serif;
