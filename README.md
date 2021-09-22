@@ -34,8 +34,9 @@ const Routes = () => {
 - [x] 홈페이지에서 `/bearlist`로 이동
       : header에서 `/home`과 `/beerlist`를 이동할 수 있도록 구현
 
-- [ ] material table library 사용하여 맥주 리스트 페이지 만들기
-  - [ ] 테이블의 column Header는 드래그로 순서 변경
+- [x] material table library 사용하여 맥주 리스트 페이지 만들기
+  - [x] 테이블의 column Header는 드래그로 순서 변경
+        => material-table 기본 기능
   - [ ] 바뀐 순서는 redux에 저장되어 `/home`와 `/bearlist`에서 모두 유지 되어야 함
 - [ ] 맥주 알콜 도수(abv) 필터 기능 만들기
   - [ ] 다중 선택 가능
@@ -49,6 +50,11 @@ const Routes = () => {
   - [ ] 장바구니는 `/home`과 `/bearlist`에서 접근 가능
 
 <br />
+
+### TroubleShooting
+
+- [x] material-table을 렌더하면 콘솔에서 에러 발생(Failed prop type)  
+       => @material-ui/core을 @4.11.4로 다운그레이드하여 해결
 
 ### 📝 &nbsp; 평가 기준
 
