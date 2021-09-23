@@ -8,9 +8,14 @@ Tradir.io - 안지현
 
 <br />
 
-### 사용기술
+### 사용라이브러리
 
-- styled-components
+- react-router-dom
+- axios
+- styled-components, styled-reset
+- material-table
+- react-redux, redux-saga
+- react-icons
 
 <br />
 
