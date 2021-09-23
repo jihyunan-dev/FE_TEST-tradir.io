@@ -6,10 +6,11 @@ import { all } from "redux-saga/effects";
 import { enableES5 } from "immer";
 import getBeerlistWatcher from "./beerlist.saga";
 import beerlist from "./beerlist.reducer";
+import cart from "./cart.reducer";
 
 enableES5();
 
-const rootReducer = combineReducers({ beerlist });
+const rootReducer = combineReducers({ beerlist, cart });
 
 // export default rootReducer;
 export default rootReducer;

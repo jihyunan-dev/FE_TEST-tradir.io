@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "material-table";
 import { tableIcons } from "./BeerTable.icons";
+import { TiShoppingCart } from "react-icons/ti";
 
 import BeerModal from "../BeerModal";
 
@@ -11,6 +12,7 @@ import {
   resetModalId,
   toggleModal,
 } from "../../Modules/beerlist.action";
+import { addCart } from "../../Modules/cart.action";
 
 const BeerTable = () => {
   const dispatch = useDispatch();
@@ -61,6 +63,13 @@ const BeerTable = () => {
     columns,
     onColumnDragged: handleOrderChange,
     data: targetList,
+    actions: [
+      {
+        icon: () => <TiShoppingCart />,
+        tooltip: "add cart",
+        onClick: (event, rowData) => dispatch(addCart(rowData.id)),
+      },
+    ],
   };
 
   return (

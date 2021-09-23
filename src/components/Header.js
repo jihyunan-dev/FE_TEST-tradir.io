@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { TiShoppingCart } from "react-icons/ti";
+import Cart from "./Cart";
 
 const Header = () => {
+  const [isShowCart, setIsShowCart] = useState(false);
+
+  const toggleCart = () => {
+    setIsShowCart((pre) => !pre);
+  };
+
   return (
     <Gnb>
       <Nav>
@@ -15,11 +23,22 @@ const Header = () => {
           </NavItem>
         </NavList>
       </Nav>
+      <Btns>
+        <CartBtnBox>
+          <CartBtn type="button" onClick={toggleCart}>
+            <TiShoppingCart />
+          </CartBtn>
+          {isShowCart && <Cart toggleCart={toggleCart} />}
+        </CartBtnBox>
+      </Btns>
     </Gnb>
   );
 };
 
 const Gnb = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 70px;
   padding: 0 40px;
@@ -47,6 +66,20 @@ const NavBtn = styled(Link)`
   &:hover {
     color: var(--red);
   }
+`;
+
+const Btns = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+`;
+
+const CartBtnBox = styled.div`
+  position: relative;
+`;
+
+const CartBtn = styled.button`
+  font-size: 22px;
 `;
 
 export default Header;
