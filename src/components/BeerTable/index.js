@@ -2,15 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "material-table";
 import { tableIcons } from "./BeerTable.icons";
-import { updateColumns } from "../../Modules/beerlist.action";
+
+import BeerModal from "../BeerModal";
+
+// redux
+import {
+  updateColumns,
+  resetModalId,
+  toggleModal,
+} from "../../Modules/beerlist.action";
 
 const BeerTable = () => {
   const dispatch = useDispatch();
 
-  const { beerlist, columns, currentFilter } = useSelector(
-    (state) => state.beerlist
-  );
+  const { beerlist, columns, currentFilter, isShowBeerModal, modalId } =
+    useSelector((state) => state.beerlist);
 
+  const [modalData, setModalData] = useState(null);
+
+  const handleModal = (e) => {
+    e.stopPropagation();
+    dispatch(toggleModal());
+    dispatch(resetModalId());
+  };
+
+  // modalId 변화에 따라 현재 modalId에 맞는 데이터 추출
+  useEffect(() => {
+    if (!modalId) setModalData(null);
+    else setModalData(beerlist.find((beer) => beer.id === modalId));
+  }, [beerlist, modalId]);
+
+  // drag로 column의 순서를 바꿀 때 redux의 column 순서도 바꿔주는 함수
   const handleOrderChange = (srcIdx, destIdx) => {
     const newColumns = columns.slice();
     const targetColumn = newColumns.splice(srcIdx, 1)[0];
@@ -20,6 +42,7 @@ const BeerTable = () => {
 
   const [targetList, setTargetList] = useState(beerlist);
 
+  // currentFilter의 값이 바뀔 때마다 렌더할 데이터를 바꿔줌
   useEffect(() => {
     if (currentFilter.length === 0) setTargetList(beerlist);
     else {
@@ -40,7 +63,14 @@ const BeerTable = () => {
     data: targetList,
   };
 
-  return <MaterialTable {...option} />;
+  return (
+    <>
+      {isShowBeerModal && modalData && (
+        <BeerModal toggleModal={handleModal} data={modalData} />
+      )}
+      <MaterialTable {...option} />
+    </>
+  );
 };
 
 export default BeerTable;

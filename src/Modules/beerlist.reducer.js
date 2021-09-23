@@ -1,3 +1,4 @@
+import ModalBtn from "../components/ModalBtn";
 import {
   GET_BEERLIST,
   GET_BEERLIST_FAILED,
@@ -5,6 +6,9 @@ import {
   UPDATE_COLUMNS,
   PLUS_FILTER,
   MINUS_FILTER,
+  TOGGLE_MODAL,
+  SET_MODAL_ID,
+  RESET_MODAL_ID,
 } from "./beerlist.action";
 
 const initialState = {
@@ -12,7 +16,11 @@ const initialState = {
   beerlist: [],
   error: null,
   columns: [
-    { title: "Beer", field: "name" },
+    {
+      title: "Beer",
+      field: "name",
+      render: (rowData) => <ModalBtn id={rowData.id}>{rowData.name}</ModalBtn>,
+    },
     {
       title: "Image",
       field: "image_url",
@@ -29,6 +37,8 @@ const initialState = {
     { title: "Description", field: "description" },
   ],
   currentFilter: [],
+  isShowBeerModal: false,
+  modalId: null,
 };
 
 const beerlist = (state = initialState, action) => {
@@ -53,6 +63,15 @@ const beerlist = (state = initialState, action) => {
           (id) => id !== action.payload
         ),
       };
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        isShowBeerModal: !state.isShowBeerModal,
+      };
+    case SET_MODAL_ID:
+      return { ...state, modalId: action.payload };
+    case RESET_MODAL_ID:
+      return { ...state, modalId: null };
     default:
       return state;
   }

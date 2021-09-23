@@ -123,7 +123,36 @@ const Routes = () => {
 
 ### 선택기능
 
-- [ ] 맥주 이름 클릭 시 상세 정보 모달 제작
+- [x] 맥주 이름 클릭 시 상세 정보 모달 제작
+
+  ```js
+  // material-table column에 modalBtn을 넣어줌
+    {
+      title: "Beer",
+      field: "name",
+      render: (rowData) => <ModalBtn id={rowData.id}>{rowData.name}</ModalBtn>,
+    },
+  ```
+
+  ```js
+  // modalBtn.js
+  ......
+  const ModalBtn = ({ id, children }) => {
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+      dispatch(toggleModal());
+      dispatch(setModalId(id));
+    };
+
+    return (
+      <Btn type="button" onClick={handleClick}>
+        {children}
+      </Btn>
+    );
+  };
+  ```
+
 - [ ] 장바구니 구현
   - [ ] 맥주 장바구니 추가, 삭제 가능
   - [ ] 장바구니는 `/home`과 `/bearlist`에서 접근 가능
