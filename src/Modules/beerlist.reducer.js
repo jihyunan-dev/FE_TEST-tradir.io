@@ -3,6 +3,8 @@ import {
   GET_BEERLIST_FAILED,
   GET_BEERLIST_SUCCESS,
   UPDATE_COLUMNS,
+  PLUS_FILTER,
+  MINUS_FILTER,
 } from "./beerlist.action";
 
 const initialState = {
@@ -26,6 +28,7 @@ const initialState = {
     { title: "Brewers tips", field: "brewers_tips" },
     { title: "Description", field: "description" },
   ],
+  currentFilter: [],
 };
 
 const beerlist = (state = initialState, action) => {
@@ -38,6 +41,18 @@ const beerlist = (state = initialState, action) => {
       return { ...state, isLoading: false, error: action.payload };
     case UPDATE_COLUMNS:
       return { ...state, columns: action.payload };
+    case PLUS_FILTER:
+      return {
+        ...state,
+        currentFilter: [...state.currentFilter, action.payload],
+      };
+    case MINUS_FILTER:
+      return {
+        ...state,
+        currentFilter: state.currentFilter.filter(
+          (id) => id !== action.payload
+        ),
+      };
     default:
       return state;
   }

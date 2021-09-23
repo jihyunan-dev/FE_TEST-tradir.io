@@ -61,9 +61,65 @@ const Routes = () => {
 
     ```
 
-- [ ] 맥주 알콜 도수(abv) 필터 기능 만들기
-  - [ ] 다중 선택 가능
-  - [ ] 필터 기능은 라이브러리가 아닌 개인이 구현
+- [x] 맥주 알콜 도수(abv) 필터 기능 만들기
+
+  - [x] 다중 선택 가능
+  - [x] 필터 기능은 라이브러리가 아닌 개인이 구현
+
+  ```js
+  // AbvFilter - filter UI 구현 및 액션 디스패치
+  ......
+  const AbvFilter = () => {
+    const dispatch = useDispatch();
+
+    const filterStep = [
+      { title: "5 미만", id: "abv1", range: [0, 5] },
+      { title: "5 이상 - 7 미만", id: "abv2", range: [5, 7] },
+      { title: "7 이상 - 9 미만", id: "abv3", range: [7, 9] },
+      { title: "9 이상 - 11 미만", id: "abv4", range: [9, 11] },
+      { title: "11 이상", id: "abv5", range: [11, Infinity] },
+    ];
+
+    const toggleFilter = (checked, range) => {
+      if (checked) dispatch(plusFilter(range));
+      else dispatch(minusFilter(range));
+    };
+
+    return (
+      <FilterBox>
+        {filterStep.map((step) => (
+          <CheckContainer key={step.id}>
+            <input
+              type="checkbox"
+              id={step.id}
+              onChange={(e) => toggleFilter(e.target.checked, step.range)}
+            />
+            <FilterLabel htmlFor={step.id}>{step.title}</FilterLabel>
+          </CheckContainer>
+        ))}
+      </FilterBox>
+    );
+  };
+  ```
+
+  ```js
+  // BeerTable/index.js
+  ......
+  const [targetList, setTargetList] = useState(beerlist);
+
+  // currentFilter가 변경될 때마다 렌더할 리스트를 변경
+  useEffect(() => {
+    if (currentFilter.length === 0) setTargetList(beerlist);
+    else {
+      const newList = beerlist.filter((beer) =>
+        currentFilter.some(
+          (range) => beer.abv >= range[0] && beer.abv < range[1]
+        )
+      );
+      setTargetList(newList);
+    }
+  }, [currentFilter, beerlist]);
+  ```
 
 ### 선택기능
 

@@ -22,12 +22,12 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     background-color: var(--white);
-
   }
   
   body{
     margin: 0;
     padding: 0;
+    font-family: 'Noto Serif KR', serif;
   }
   
   a {
